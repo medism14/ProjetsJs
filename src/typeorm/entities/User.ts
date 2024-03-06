@@ -1,4 +1,5 @@
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, OneToOne } from 'typeorm';
+import { Panier } from './Panier';
 
 @Entity({ name: 'users' })
 export class User {
@@ -6,24 +7,27 @@ export class User {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'first_name', length: 50, nullable: false })
+    @Column({ name: 'first_name', length: 50 })
     firstName: string;
 
-    @Column({ name: 'last_name', length: 50, nullable: false })
+    @Column({ name: 'last_name', length: 50 })
     lastName: string;
 
-    @Column({ name: 'role', nullable: false })
+    @Column({ name: 'role' })
     role: number;
 
-    @Column({ name: 'email', length: 50, unique: true, nullable: false })
+    @Column({ name: 'email', length: 50, unique: true })
     email: string;
 
-    @Column({ name: 'password', length: 50, nullable: false })
+    @Column({ name: 'password', length: 50 })
     password: string;
 
-    @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP', nullable: false })
+    @OneToOne(() => Panier, panier => panier.user, { onDelete: "CASCADE" })
+    panier: Panier;
+
+    @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
-    @Column({ name: 'updated_at', default: () => 'CURRENT_TIMESTAMP', onUpdate: 'CURRENT_TIMESTAMP', nullable: false })
+    @Column({ name: 'updated_at', default: () => 'CURRENT_TIMESTAMP' })
     updatedAt: Date;
 }
