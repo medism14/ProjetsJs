@@ -8,8 +8,26 @@ import { Repository } from 'typeorm';
 export class CategoriesService {
     constructor (@InjectRepository (Categorie) private categorieRepository: Repository<Categorie>) {}
 
-    findCategories () {
-        return this.categorieRepository.find();
+    async findCategories (page: number = 1, limit: number = 5) {
+
+        const [ categories, total ] = await this.categorieRepository.findAndCount({
+            take: limit,
+            skip: (page - 1) * limit
+        })
+
+        let totalPages = Math.ceil(total / limit);
+
+        return {
+            categories,
+            totalPages,
+        }
+    }
+
+    async getAll (page: number = 1, limit: number = 5) {
+
+        const categories = await this.categorieRepository.find();
+
+        return categories;
     }
 
     getCategorie(id: number) {

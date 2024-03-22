@@ -9,8 +9,18 @@ export class ProduitsService {
 
     constructor(@InjectRepository (Produit) private produitRepository: Repository<Produit>) {}
 
-    getProduits () {
-        return this.produitRepository.find();
+    async getProduits (page: number = 1, limit: number = 5) {
+        const [ produits, total ] = await this.produitRepository.findAndCount({
+            take: limit,
+            skip: (page - 1) * limit,
+        });
+
+        let totalPages = Math.ceil(total / limit);
+
+        return {
+            produits,
+            totalPages,
+        }
     }
 
     getProduct (id: number) {

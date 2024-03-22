@@ -19,7 +19,7 @@ export class User {
     @Column({ name: 'email', length: 50, unique: true })
     email: string;
 
-    @Column({ name: 'password', length: 50 })
+    @Column({ name: 'password', length: 255 })
     password: string;
 
     @OneToOne(() => Panier, panier => panier.user, { onDelete: "CASCADE" })

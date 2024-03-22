@@ -4,6 +4,7 @@ import { User } from 'src/typeorm/entities/User';
 import { CreateUserParams, UpdateUserParams } from 'src/utils/types';
 import { PaniersService } from 'src/paniers/services/paniers/paniers.service';
 import { Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class UsersService {
@@ -17,11 +18,11 @@ export class UsersService {
     getUser (id: number) {
         return this.userRepository.findOne({
             where: { id },
-            relations: ['panier']
+            relations: ['panier.panierProduits.produit']
         });
     }
 
-    async createUser (userDetails: CreateUserParams) {
+    async register (userDetails: CreateUserParams) {
         const newUser = this.userRepository.create(userDetails);
 
         const createPanierDto = {
@@ -34,14 +35,17 @@ export class UsersService {
     async updateUser (id:number, updateUserDetails: UpdateUserParams) {
         const user = await this.userRepository.findOne({where: { id }});
 
-        if (user) {
-            await this.userRepository.update({id}, {updatedAt: new Date()});
-            await this.userRepository.update({id}, {...updateUserDetails});
-
-            return user;
-        } else {
-            throw new HttpException('Produit non trouvé', HttpStatus.BAD_REQUEST);
+        if (!user) {
+            throw new HttpException('Utilisateur non trouvé', HttpStatus.BAD_REQUEST);
         }
+
+        if (updateUserDetails.password) {
+            updateUserDetails.password = await bcrypt.hash(updateUserDetails.password, 10);
+        }
+
+        await this.userRepository.update({id}, { ...updateUserDetails, updatedAt: new Date() });
+
+        return user;
     }
 
     async deleteUser(id: number) {

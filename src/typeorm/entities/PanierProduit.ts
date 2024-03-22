@@ -21,7 +21,7 @@ export class PanierProduit {
     @JoinColumn({ name: 'panier_id' })
     panier: Panier;
 
-    @OneToOne(() => Produit, produit => produit.panierProduit)
+    @ManyToOne(() => Produit, produit => produit.panierProduit)
     @JoinColumn({ name: 'produit_id' })
     produit: Produit;
 

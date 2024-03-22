@@ -15,9 +15,9 @@ export class UsersController {
     }
 
     @Post()
-    async createUser(@Body() createUserDto: CreateUserDto) {
+    async register(@Body() createUserDto: CreateUserDto) {
         // Créer l'utilisateur
-        const user = await this.userService.createUser(createUserDto);
+        const user = await this.userService.register(createUserDto);
 
         // Créer un panier pour l'utilisateur
         const createPanierDto = {

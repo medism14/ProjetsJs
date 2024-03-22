@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToOne, OneToMany } from 'typeorm';
 import { Categorie } from './Categorie';
 import { PanierProduit } from './PanierProduit';
 
@@ -8,10 +8,10 @@ export class Produit {
     @PrimaryGeneratedColumn()
     id: number;
 
-    @Column({ name: 'date_in', default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ name: 'date_in', type: 'date', default: () => 'CURRENT_DATE' })
     dateIn: Date;
 
-    @Column({ name: 'date_up', default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ name: 'date_up', type: 'date', default: () => 'CURRENT_DATE' })
     dateUp: Date;
 
     @Column({ name: 'designation', length: 255 })
@@ -26,7 +26,7 @@ export class Produit {
     @Column({ name: 'categorie_id' })
     categorieId: number;
 
-    @Column({ name: 'created_at', default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ name: 'created_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     createdAt: Date;
 
     //Relation avec categorie
@@ -35,10 +35,10 @@ export class Produit {
     categorie: Categorie;
 
     //Relation avec panier Produit
-    @OneToOne(() => PanierProduit, panierProduit => panierProduit.produit, { onDelete: "CASCADE" })
-    panierProduit: PanierProduit;
+    @OneToMany(() => PanierProduit, panierProduit => panierProduit.produit, { onDelete: "CASCADE" })
+    panierProduit: PanierProduit[];
 
-    @Column({ name: 'updated_at', default: () => 'CURRENT_TIMESTAMP' })
+    @Column({ name: 'updated_at', type: 'timestamp', default: () => 'CURRENT_TIMESTAMP' })
     updatedAt: Date;
 
 }

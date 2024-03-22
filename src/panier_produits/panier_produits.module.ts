@@ -3,9 +3,10 @@ import { PanierProduitsController } from './controllers/panier_produits/panier_p
 import { PanierProduitsService } from './services/panier_produits/panier_produits.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PanierProduit } from 'src/typeorm/entities/PanierProduit';
+import { Produit } from 'src/typeorm/entities/Produit';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([PanierProduit])],
+  imports: [TypeOrmModule.forFeature([PanierProduit, Produit])],
   controllers: [PanierProduitsController],
   providers: [PanierProduitsService]
 })

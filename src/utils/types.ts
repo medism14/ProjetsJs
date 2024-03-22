@@ -2,7 +2,6 @@
 export type CreateUserParams = {
     firstName: string;
     lastName: string;
-    role: number;
     email: string;
     password: string;
 }
@@ -28,6 +27,7 @@ export type UpdateCategorieParams = {
 export type CreateProduitParams = {
     designation: string;
     prix: number;
+    dateIn: Date;
     quantite: number;
     categorieId: number;
 }
@@ -35,6 +35,7 @@ export type CreateProduitParams = {
 export type UpdateProduitParams = {
     designation: string;
     prix: number;
+    dateIn: Date;
     quantite: number;
     categorieId: number;
 }

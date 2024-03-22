@@ -2,6 +2,7 @@ import { Body, Controller, Get, Post, Put, Delete, Param, ParseIntPipe } from '@
 import { CreatePanierDto } from 'src/paniers/dtos/CreatePanier.dto';
 import { UpdatePanierDto } from 'src/paniers/dtos/UpdatePanier.dto';
 import { PaniersService } from 'src/paniers/services/paniers/paniers.service';
+import { ProduitsService } from 'src/produits/services/produits/produits.service';
 
 @Controller('paniers')
 export class PaniersController {
@@ -24,11 +25,14 @@ export class PaniersController {
 
     @Put(':id')
     async updatePanier (@Param('id', ParseIntPipe) id: number, @Body() updatePanierDto: UpdatePanierDto) {
-        return await this.panierService.updatePanier(id, updatePanierDto);
+
+        const panier = await this.panierService.updatePanier(id, updatePanierDto);
     }
 
     @Delete(':id')
     async deletePanier (@Param('id', ParseIntPipe) id:number) {
         return await this.panierService.deletePanier(id);
     }
+
+
 }

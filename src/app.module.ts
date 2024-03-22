@@ -14,6 +14,7 @@ import { ProduitsModule } from './produits/produits.module';
 import { PaniersModule } from './paniers/paniers.module';
 import { PanierProduitsModule } from './panier_produits/panier_produits.module';
 import { PanierProduit } from './typeorm/entities/PanierProduit';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
         imports: [
@@ -31,7 +32,8 @@ import { PanierProduit } from './typeorm/entities/PanierProduit';
           CategoriesModule,
           ProduitsModule,
           PaniersModule,
-          PanierProduitsModule
+          PanierProduitsModule,
+          AuthModule
         ],
   controllers: [AppController],
   providers: [AppService],
