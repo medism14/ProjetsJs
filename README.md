@@ -1,99 +1,34 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="200" alt="Nest Logo" /></a>
-</p>
+## Info
+<p style="font-bold text-white">Il faut tout d'abord commencer par changer les informations de la base de donnée dans /backend/src/app.module.ts</p>
+<p style="font-bold text-white">Le backend est lancé sur le port 3000 à voir dans /backend/src/main.ts</p>
+<p style="font-bold text-white">La creation de table et le MRD sont disponible ci-dessous</p>
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
-
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://coveralls.io/github/nestjs/nest?branch=master" target="_blank"><img src="https://coveralls.io/repos/github/nestjs/nest/badge.svg?branch=master#9" alt="Coverage" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
-
-## Description
-
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Installation
-
-```bash
-$ yarn install
-```
-
-## Running the app
-
-```bash
-# development
-$ yarn run start
-
-# watch mode
-$ yarn run start:dev
-
-# production mode
-$ yarn run start:prod
-```
-
-## Test
-
-```bash
-# unit tests
-$ yarn run test
-
-# e2e tests
-$ yarn run test:e2e
-
-# test coverage
-$ yarn run test:cov
-```
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://kamilmysliwiec.com)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](LICENSE).
-
+##
 ## Database:
-CREATE TABLE users (
+##
+
+## Users:
+<pre>CREATE TABLE users (
 id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 first_name VARCHAR(50),
 last_name VARCHAR(50),
 role INT NOT NULL CHECK (role IN (0, 1)),
 email VARCHAR(50) UNIQUE,
 password VARCHAR(50),
-
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+);</pre>
 
-CREATE TABLE categories (
+## Categories:
+<pre>CREATE TABLE categories (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 designation VARCHAR(255) NOT NULL,
-
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
+);</pre>
 
-CREATE TABLE produits (
+## Produits:
+<pre>CREATE TABLE produits (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 date_in DATE NOT NULL,
 date_up DATE NOT NULL,
@@ -101,22 +36,22 @@ designation VARCHAR(255) NOT NULL,
 prix DECIMAL(10,2) NOT NULL,
 quantite INT NOT NULL,
 categorie_id INT NOT NULL,
-
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (categorie_id) REFERENCES categories (id)
-);
+);</pre>
 
-CREATE TABLE paniers (
+## Paniers:
+<pre>CREATE TABLE paniers (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 user_id INT NOT NULL,
-
 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (user_id) REFERENCES users (id)
-);
+);</pre>
 
-CREATE TABLE panier_produits (
+## PanierProduits:
+<pre>CREATE TABLE panier_produits (
 id INT PRIMARY KEY NOT NULL AUTO_INCREMENT,
 produit_id INT NOT NULL,
 panier_id INT NOT NULL,
@@ -125,10 +60,10 @@ created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
 FOREIGN KEY (produit_id) REFERENCES produits (id),
 FOREIGN KEY (panier_id) REFERENCES paniers (id)
-);
+);</pre>
 
 ## MRD:
-
+<pre>
 -users (id, first_name, last_name, role, email, password, created_at, updated_at)
 
 -categories (id, designation, created_at, updated_at)
@@ -138,3 +73,4 @@ FOREIGN KEY (panier_id) REFERENCES paniers (id)
 -paniers (id, user_id, created_at, updated_at)
 
 -panier_produits (id, produit_id, panier_id, quantite, created_at, updated_at)
+</pre>
