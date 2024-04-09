@@ -17,7 +17,9 @@ import Cookies from 'js-cookie';
 
 
 const Connexion = () => {
-    
+
+    // document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     const navigateTo = useNavigate();
     const dispatch = useDispatch();
 
