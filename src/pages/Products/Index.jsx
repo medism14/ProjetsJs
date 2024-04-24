@@ -9,6 +9,8 @@ import axios from "axios";
 
 const Index = () => {
 
+    // document.cookie = "access_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
     const htmlElements = useSelector((state) => state.htmlElements);
     const panierChange = useSelector((state) => state.htmlElements.panierChange);
     const actualPage = useSelector((state) => state.htmlElements.actualPageProduit);
@@ -87,7 +89,7 @@ const Index = () => {
                 id: data.id,
                 designation: data.designation,
                 prix: data.prix,
-                quantite: data.quantite,
+                quantite: `${data.quantite}`,
                 dateIn: data.dateIn,
                 dateUp: data.dateUp,
                 categorie: data.categorie,

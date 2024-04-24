@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import { Connexion, Inscription, Produit, ProduitAdd, ProduitEdit, Categorie, CategorieAdd, CategorieEdit } from './pages';
 import { Footer, Header, NotFound, Loading } from "./components";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import axios from 'axios';
 import { loggedIn, actualUserSet } from './redux/features/userSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -78,7 +78,7 @@ const App = () => {
                 )}
                 
               </>
-            ): (
+            ) : (
               <>
                 <Route path="/" element={<Connexion />}></Route>
                 <Route path="/inscription" element={<Inscription />}></Route>

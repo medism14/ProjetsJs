@@ -13,6 +13,8 @@ const Header = ({auth}) => {
     const navigateTo = useNavigate();
     const user = useSelector((state) => state.user);
 
+    const panierChange = useSelector((state) => state.htmlElements.panierChange);
+
     const handleDeconnexion = () => {
         deleteCookie('access_token');
         deleteCookie('id');
@@ -66,7 +68,7 @@ const Header = ({auth}) => {
                 }
             });
         }
-    }, []);
+    }, [panierRef.current]);
 
     const panierDisplay = () => {
         if (hidden) {
